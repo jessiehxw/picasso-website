@@ -13,6 +13,6 @@ The website will consist of Oauth Login function for new users to login with the
 #Django framework, #Oauth, #Models, #Model forms, #Forms, #jQuery
 
 #### Programming Languages:
-![Programming Languages][[pro_lan.png](https://github.com/jessiehxw/picasso-website/blob/main/pro_lan.png)]
+![Programming Languages](pro_lan.png)
 
 
