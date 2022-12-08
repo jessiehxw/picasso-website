@@ -1,0 +1,29 @@
+{% extends "picasso/base.html" %}
+
+{% block title %} Profile {% endblock %}
+
+{% block page-name %} My Profile {% endblock %}
+
+{% block navigation %}
+    <a href="{% url 'add-picture' %}"><button id="id_nav_convert">Home</button></a>
+    <a href="{% url 'global' %}"><button id="id_global_stream_button">Platform</button></a>
+    <a href="{% url 'logout' %}"><button id="id_logout_button">Logout</button></a>
+{% endblock %}
+
+{% block content %}
+    <div class="side_nav">
+        <div class="nav_box current_box"><a class="side_link" href="{% url 'profile' %}">My Profile</a></div>
+        <div class="nav_box"><a class="side_link" href="{% url 'posts' %}">My Posts</a></div>
+        <div class="nav_box"><a class="side_link" href="{% url 'work' %}">My Work</a></div>
+    </div>
+
+    <img src="{{ request.session.picture }}" alt="User Profile Picture" id="id_avatar"><br><br>
+
+    <p class="plain_text"> Welcome {{ request.user.first_name }} (^‿^) </p>
+
+    <div class="like_count_div">
+        <p class="like_count_1">Total like: {{ total_like }}</p>
+        <p class="like_count_2">Total dislike: {{ total_dislike }}</p>
+    </div>
+{% endblock %}
+

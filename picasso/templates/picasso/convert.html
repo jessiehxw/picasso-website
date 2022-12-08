@@ -1,0 +1,62 @@
+{% extends "picasso/base.html" %}
+
+{% block title %} Photo Hub {% endblock %}
+
+{% block page-name %} Photo Hub {% endblock %}
+
+{% block navigation %}
+    <a href="{% url 'add-picture' %}"><button id="id_nav_convert"> Home </button></a>
+    <a href="{% url 'global' %}"><button id="id_global_stream_button"> Platform </button></a>
+    <a href="{% url 'profile' %}"><button id="id_nav_profile"> My Profile </button></a>
+    <a href="{% url 'logout' %}"><button id="id_logout_button"> Logout </button></a>
+{% endblock %}
+
+{% block content %}
+    {% if picture %}
+        <img src="{% url 'picture' picture.id %}" class="id_picture" id="id_picture"/>
+    {% endif %}
+    <form method="post" id="image_conversion_form" action="{% url 'add-picture' %}" enctype="multipart/form-data">
+        <table>
+            {{ form }}
+        </table>
+        {% csrf_token %}
+        <button id="id_add_picture_button" type="submit">Submit</button>
+    </form>
+
+    <script>
+        window.onload = validateFormComponent
+    </script>
+
+    <br><br>
+
+    <p id="id_donation_text" class="plain_text"> Make a donation to the website ʕ•́ᴥ•̀ʔっ♡ </p><br>
+    <div id="paypal-button-container"></div>
+
+    <!-- Include the PayPal JavaScript SDK -->
+    <script src="https://www.paypal.com/sdk/js?client-id=AfxD_UYf95w80Q5NiW63wBfuZDjnj9Y8g_ag4VNjztUQ_soNGZT2YJD-8dGe4CCwO5UefoLeut94JDBi&currency=USD"></script>
+
+    <script>
+        // Render the PayPal button into #paypal-button-container
+        paypal.Buttons({
+            // Set up the transaction
+            createOrder: function (data, actions) {
+                return actions.order.create({
+                    purchase_units: [{
+                        amount: {
+                            value: '5.00'
+                        }
+                    }]
+                });
+            },
+            // Finalize the transaction
+            onApprove: function (data, actions) {
+                return actions.order.capture().then(function (orderData) {
+                    // Successful capture!
+                    console.log('Capture result', orderData, JSON.stringify(orderData, null, 2));
+                    var transaction = orderData.purchase_units[0].payments.captures[0];
+                    alert('Transaction Success');
+                });
+            }
+        }).render('#paypal-button-container');
+    </script>
+{% endblock %}

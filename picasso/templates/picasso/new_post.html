@@ -1,0 +1,38 @@
+{% extends "picasso/base.html" %}
+
+{% block title %} New Post {% endblock %}
+
+{% block page-name %} New Post {% endblock %}
+
+{% block navigation %}
+
+    <a href="{% url 'add-picture' %}"><button id="id_nav_convert"> Home </button></a>
+    <a href="{% url 'global' %}"><button id="id_global_stream_button"> Platform </button></a>
+    <a href="{% url 'logout' %}"><button id="id_logout_button"> Logout </button></a>
+
+{% endblock %}
+
+{% block content %}
+    <a href="{% url 'work' %}"><button class="post_button" id="id_back_button"> Back </button></a>
+
+    {% if error == '1' %}
+        <script>
+        alert("You must enter a description to post.")
+        </script>
+    {% endif %}
+    <form method="post" action="{% url 'add-post' %}">
+        <div class="post_form_div">
+            <label class="image_label post_form" for="image_selection">Your Image:</label>
+            <select class="post_form" name="my_images" id="image_selection">
+                {% for picture in pictures %}
+                    <option value="{{ picture.title }}">{{ picture.title }}</option>
+                {% endfor %}
+            </select>
+            <label class="text_label post_form" for="text_box">Text:</label>
+            <input class="post_form" type="text" id="text_box" name="description">
+            {% csrf_token %}
+            <button class="post_button post_form" id="post_button" type="submit">Post</button>
+        </div>
+    </form>
+
+{% endblock %}

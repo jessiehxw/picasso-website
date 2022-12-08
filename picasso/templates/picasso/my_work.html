@@ -1,0 +1,33 @@
+{% extends "picasso/base.html" %}
+
+{% block title %} My Work {% endblock %}
+
+{% block page-name %} My Work {% endblock %}
+
+{% block navigation %}
+
+    <a href="{% url 'add-picture' %}"><button id="id_nav_convert"> Home </button></a>
+    <a href="{% url 'global' %}"><button id="id_global_stream_button"> Platform </button></a>
+    <a href="{% url 'logout' %}"><button id="id_logout_button"> Logout </button></a>
+
+{% endblock %}
+
+{% block content %}
+    <a id="new_post_button" href="{% url 'new-post' %}"><button class="post_button"> New Post </button></a>
+
+    <div class="side_nav">
+        <div class="nav_box"><a class="side_link" href="{% url 'profile' %}">My Profile</a></div>
+        <div class="nav_box"><a class="side_link" href="{% url 'posts' %}">My Posts</a></div>
+        <div class="nav_box current_box"><a class="side_link" href="{% url 'work' %}">My Work</a></div>
+    </div>
+
+    <div class="flex-container" id="my-pics-go-here"></div>
+
+    <script>
+        window.onload = getMyPic
+
+        // call getMyPic every 5 seconds hereafter to update the posts
+        window.setInterval(getMyPic, 5000);
+    </script>
+
+{% endblock %}
